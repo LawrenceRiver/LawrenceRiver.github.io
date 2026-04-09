@@ -5,6 +5,7 @@ export function inferTypeFromPath(path: string): ItemType | null {
   if (p.includes('/src/content/research/papers/')) return 'paper'
   if (p.includes('/src/content/singer/albums/')) return 'album'
   if (p.includes('/src/content/singer/merch/')) return 'merch'
+  if (p.includes('/src/content/singer/plugins/')) return 'plugin'
   if (p.includes('/src/content/singer/tours/')) return 'tour'
   return null
 }

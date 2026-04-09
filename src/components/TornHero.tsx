@@ -17,7 +17,7 @@ export default function TornHero({
             "before:absolute before:inset-0 before:bg-cover before:bg-center before:opacity-90 before:content-['']",
           )}
           style={{
-            clipPath: 'polygon(0 0, 100% 0, 92% 100%, 0 100%)',
+            clipPath: 'polygon(0 0, 100% 0, 96% 100%, 0 100%)',
           }}
         >
           <div
@@ -27,21 +27,16 @@ export default function TornHero({
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/10 dark:from-black/80" />
-          <div className="relative flex w-full items-end justify-between gap-4">
-            <div className="text-sm font-semibold tracking-tight text-white/90 md:text-base">{left.title}</div>
+          <Link to={left.href} aria-label={left.title} className="absolute inset-0 z-10" />
+          <div className="absolute bottom-6 left-6 z-20 text-sm font-semibold tracking-tight text-white/55 md:bottom-8 md:left-8 md:text-base">
+            {left.title}
           </div>
-          <Link
-            to={left.href}
-            className="glow-hover absolute bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-full bg-white/0 px-6 py-2 text-xs font-medium tracking-wide text-white/90 backdrop-blur transition hover:text-white"
-          >
-            {left.cta}
-          </Link>
         </div>
 
         <div
           className="relative flex items-end overflow-hidden p-6 md:p-8"
           style={{
-            clipPath: 'polygon(8% 0, 100% 0, 100% 100%, 0 100%)',
+            clipPath: 'polygon(4% 0, 100% 0, 100% 100%, 0 100%)',
           }}
         >
           <div
@@ -51,18 +46,13 @@ export default function TornHero({
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/10 dark:from-black/80" />
-          <div className="relative flex w-full items-end justify-between gap-4">
-            <div className="text-sm font-semibold tracking-tight text-white/90 md:text-base">{right.title}</div>
+          <Link to={right.href} aria-label={right.title} className="absolute inset-0 z-10" />
+          <div className="absolute right-6 top-6 z-20 text-sm font-semibold tracking-tight text-white/55 md:right-8 md:top-8 md:text-base">
+            {right.title}
           </div>
-          <Link
-            to={right.href}
-            className="glow-hover absolute bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-full bg-white/0 px-6 py-2 text-xs font-medium tracking-wide text-white/90 backdrop-blur transition hover:text-white"
-          >
-            {right.cta}
-          </Link>
         </div>
 
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-1/2 w-[56px] -translate-x-1/2 md:w-[80px]">
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-1/2 w-[92px] -translate-x-1/2 md:w-[140px]">
           <div className="absolute inset-y-0 left-1/2 w-[160px] -translate-x-1/2 md:w-[220px]">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0),rgba(0,0,0,0.32),rgba(0,0,0,0))] blur-[10px]" />
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0),rgba(255,255,255,0.06),rgba(255,255,255,0))]" />

@@ -20,7 +20,47 @@ collections:
           - { label: "Home Singer Image", name: "homeSingerImage", widget: "string" }
           - { label: "Singer Poster Image", name: "singerPosterImage", widget: "string" }
           - { label: "Singer Era Image", name: "singerEraImage", widget: "string" }
+          - { label: "Singer Background Image", name: "singerBackgroundImage", widget: "string", required: false }
           - { label: "Research Hero Image", name: "researchHeroImage", widget: "string" }
+          - label: "Social Links"
+            name: "socialLinks"
+            widget: "list"
+            required: false
+            fields:
+              - label: "ID"
+                name: "id"
+                widget: "select"
+                options: ["instagram", "youtube", "spotify", "bilibili", "rednote", "tiktok", "douyin"]
+              - { label: "URL", name: "url", widget: "string" }
+
+      - file: "src/content/site/music-videos.md"
+        label: "Music Videos"
+        name: "music_videos"
+        fields:
+          - label: "Videos"
+            name: "videos"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Title (EN)", name: "title_en", widget: "string", required: false }
+              - { label: "YouTube ID", name: "youtubeId", widget: "string" }
+
+      - file: "src/content/site/singer-sections.md"
+        label: "Singer Sections"
+        name: "singer_sections"
+        fields:
+          - label: "Sections"
+            name: "sections"
+            widget: "list"
+            fields:
+              - label: "ID"
+                name: "id"
+                widget: "select"
+                options: ["albums", "merch", "plugins", "tours"]
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Title (EN)", name: "title_en", widget: "string", required: false }
+              - { label: "Body", name: "body", widget: "string", required: false }
+              - { label: "Body (EN)", name: "body_en", widget: "string", required: false }
       - file: "src/content/site/research-profile.md"
         label: "Research Profile"
         name: "research_profile"
@@ -92,6 +132,30 @@ collections:
   - name: "merch"
     label: "Merch"
     folder: "src/content/singer/merch"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Summary", name: "summary", widget: "text", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Cover", name: "coverImage", widget: "image", required: false }
+      - { label: "Price", name: "price", widget: "string", required: false }
+      - { label: "Availability", name: "availabilityStatus", widget: "select", options: ["available", "sold_out", "coming_soon"], required: false }
+      - label: "Buy Links"
+        name: "buyLinks"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+      - { label: "Published At", name: "publishedAt", widget: "datetime", required: false }
+      - { label: "Updated At", name: "updatedAt", widget: "datetime", required: false }
+      - { label: "Pinned", name: "pinned", widget: "boolean", required: false }
+      - { label: "Body", name: "body", widget: "markdown", required: false }
+
+  - name: "plugins"
+    label: "Plug-ins"
+    folder: "src/content/singer/plugins"
     create: true
     slug: "{{slug}}"
     fields:

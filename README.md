@@ -52,13 +52,18 @@ pinned: true
 2. 本地在项目根目录执行：
 
 ```bash
+# 关键：一定要先进入你的项目目录（不要在 ~ 下执行）
 cd /Users/lawrenceriver/Desktop/lawrenceriverhonglinliao
 
+# 如果这里 `ls -a` 看不到 .git，说明还没初始化过
 git init
-git add .
-git commit -m "init"
+
+# 你的 Pages 仓库（用户名站点仓库）
+git remote add origin https://github.com/LawrenceRiver/LawrenceRiver.github.io.git
+
 git branch -M main
-git remote add origin https://github.com/<你的用户名>/<仓库名>.git
+git add .
+git commit -m "update site"
 git push -u origin main
 ```
 

@@ -68,6 +68,19 @@ export default function ItemDetail() {
     }
     if (item.price) lineA.push(item.price)
   }
+
+  if (item.type === 'plugin') {
+    if (item.availabilityStatus) {
+      lineA.push(
+        item.availabilityStatus === 'available'
+          ? t('singer_status_available')
+          : item.availabilityStatus === 'sold_out'
+            ? t('singer_status_sold_out')
+            : t('singer_status_coming_soon'),
+      )
+    }
+    if (item.price) lineA.push(item.price)
+  }
   if (item.type === 'tour') {
     if (item.eventDate) lineA.push(item.eventDate)
     if (item.city) lineA.push(item.city)
@@ -85,6 +98,9 @@ export default function ItemDetail() {
   if (item.type === 'merch') {
     for (const l of item.buyLinks ?? []) links.push({ label: l.label, url: l.url, kind: 'buy' })
   }
+  if (item.type === 'plugin') {
+    for (const l of item.buyLinks ?? []) links.push({ label: l.label, url: l.url, kind: 'buy' })
+  }
   if (item.type === 'tour') {
     for (const l of item.ticketLinks ?? []) links.push({ label: l.label, url: l.url, kind: 'ticket' })
   }
@@ -97,7 +113,9 @@ export default function ItemDetail() {
         ? t('type_album')
         : item.type === 'merch'
           ? t('type_merch')
-          : t('type_tour')
+          : item.type === 'plugin'
+            ? t('type_plugin')
+            : t('type_tour')
 
   return (
     <div className="space-y-8">
@@ -157,6 +175,45 @@ export default function ItemDetail() {
         </article>
 
         <aside className="space-y-3">
+          {item.type === 'merch' || item.type === 'plugin' ? (
+            <div className="rounded-3xl border border-zinc-200 bg-white p-5 dark:border-white/10 dark:bg-white/5">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="text-xs font-medium text-zinc-500 dark:text-zinc-400">{typeLabel}</div>
+                  <div className="mt-1 text-sm font-semibold tracking-tight">{title}</div>
+                </div>
+                <div className="text-right">
+                  {item.price ? <div className="text-sm font-semibold">{item.price}</div> : null}
+                  {item.availabilityStatus ? (
+                    <div className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+                      {item.availabilityStatus === 'available'
+                        ? t('singer_status_available')
+                        : item.availabilityStatus === 'sold_out'
+                          ? t('singer_status_sold_out')
+                          : t('singer_status_coming_soon')}
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+
+              <div className="mt-4 space-y-2">
+                {links
+                  .filter((l) => l.kind === 'buy')
+                  .map((l) => (
+                    <a
+                      key={`buy:${l.label}`}
+                      href={l.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="glow-hover inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-[#6D5EF7] to-[#4D8CFF] px-4 py-3 text-sm font-medium text-white"
+                    >
+                      {l.label}
+                    </a>
+                  ))}
+              </div>
+            </div>
+          ) : null}
+
           <div className="rounded-3xl border border-zinc-200 bg-white p-5 dark:border-white/10 dark:bg-white/5">
             <div className="text-xs font-medium text-zinc-500 dark:text-zinc-400">{t('common_actions')}</div>
             <div className="mt-4 space-y-2">

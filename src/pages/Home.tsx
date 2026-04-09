@@ -6,6 +6,7 @@ import { searchItems } from '@/utils/search'
 import { pickByLang, useI18n } from '@/i18n'
 import TornHero from '@/components/TornHero'
 import { loadSiteSettings } from '@/content/site'
+import SocialLinks from '@/components/SocialLinks'
 
 export default function Home() {
   const { lang, t } = useI18n()
@@ -34,6 +35,12 @@ export default function Home() {
           cta: t('home_hero_cta'),
         }}
       />
+
+      {settings.socialLinks?.length ? (
+        <div className="flex justify-center">
+          <SocialLinks links={settings.socialLinks} className="text-zinc-900 dark:text-white" />
+        </div>
+      ) : null}
 
       {q ? (
         <section className="space-y-4">
@@ -89,7 +96,15 @@ export default function Home() {
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="rounded-md bg-zinc-100 px-2 py-1 text-xs text-zinc-600 dark:bg-white/10 dark:text-zinc-300">
-                    {it.type === 'paper' ? t('type_paper') : it.type === 'album' ? t('type_album') : it.type === 'merch' ? t('type_merch') : t('type_tour')}
+                    {it.type === 'paper'
+                      ? t('type_paper')
+                      : it.type === 'album'
+                        ? t('type_album')
+                        : it.type === 'merch'
+                          ? t('type_merch')
+                          : it.type === 'plugin'
+                            ? t('type_plugin')
+                            : t('type_tour')}
                   </span>
                   <span className="truncate text-sm font-medium">{pickByLang(lang, it.title, it.titleEn)}</span>
                 </div>

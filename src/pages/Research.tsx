@@ -23,7 +23,7 @@ export default function Research() {
         </div>
       </PosterHero>
 
-      <section className="grid grid-cols-1 gap-4 md:grid-cols-[280px_1fr]">
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-[200px_1fr]">
         <div className="overflow-hidden rounded-2xl border border-zinc-200/80 bg-white/70 shadow-sm shadow-black/[0.02] backdrop-blur dark:border-white/10 dark:bg-white/5 dark:shadow-black/0">
           <img src={profile.avatar ?? '/hero/avatar.svg'} alt={profile.name} className="h-[280px] w-full object-cover" />
         </div>

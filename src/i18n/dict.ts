@@ -40,6 +40,7 @@ export const dict = {
     singer_desc: '专辑 / 周边 / 巡演统一列表与详情。更新只需要改 Markdown。',
     singer_tab_album: '专辑',
     singer_tab_merch: '周边',
+    singer_tab_plugin: 'Plug-ins',
     singer_tab_tour: '巡演',
     singer_filter_year: '年份',
     singer_filter_tag: '标签',
@@ -58,6 +59,9 @@ export const dict = {
     music_choose_service: '选择你喜欢的音乐服务',
     music_play: '播放',
     music_mv: 'MV',
+
+    common_open: '打开',
+    common_close: '关闭',
 
     research_byline: 'LIAO Honglin',
     research_title: 'AI 科研',
@@ -78,6 +82,7 @@ export const dict = {
     type_paper: '论文',
     type_album: '专辑',
     type_merch: '周边',
+    type_plugin: 'Plug-ins',
     type_tour: '巡演',
   },
   en: {
@@ -119,6 +124,7 @@ export const dict = {
     singer_desc: 'Unified lists and detail pages for albums, merch, and tours. Updating is as simple as editing Markdown.',
     singer_tab_album: 'Albums',
     singer_tab_merch: 'Merch',
+    singer_tab_plugin: 'Plug-ins',
     singer_tab_tour: 'Tours',
     singer_filter_year: 'Year',
     singer_filter_tag: 'Tag',
@@ -137,6 +143,9 @@ export const dict = {
     music_choose_service: 'Choose your music service',
     music_play: 'Play',
     music_mv: 'MV',
+
+    common_open: 'Open',
+    common_close: 'Close',
 
     research_byline: 'LIAO Honglin',
     research_title: 'AI Research',
@@ -157,6 +166,7 @@ export const dict = {
     type_paper: 'Paper',
     type_album: 'Album',
     type_merch: 'Merch',
+    type_plugin: 'Plug-ins',
     type_tour: 'Tour',
   },
 } as const

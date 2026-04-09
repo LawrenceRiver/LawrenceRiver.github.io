@@ -1,4 +1,4 @@
-export type ItemType = 'paper' | 'album' | 'merch' | 'tour'
+export type ItemType = 'paper' | 'album' | 'merch' | 'plugin' | 'tour'
 
 export type ExternalLink = {
   label: string
@@ -48,6 +48,13 @@ export type MerchItem = BaseItem & {
   buyLinks?: ExternalLink[]
 }
 
+export type PluginItem = BaseItem & {
+  type: 'plugin'
+  price?: string
+  availabilityStatus?: 'available' | 'sold_out' | 'coming_soon'
+  buyLinks?: ExternalLink[]
+}
+
 export type TourItem = BaseItem & {
   type: 'tour'
   eventDate?: string
@@ -56,4 +63,4 @@ export type TourItem = BaseItem & {
   ticketLinks?: ExternalLink[]
 }
 
-export type ContentItem = PaperItem | AlbumItem | MerchItem | TourItem
+export type ContentItem = PaperItem | AlbumItem | MerchItem | PluginItem | TourItem

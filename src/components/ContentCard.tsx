@@ -16,6 +16,8 @@ export default function ContentCard({ item, compact }: { item: ContentItem; comp
         ? t('type_album')
         : item.type === 'merch'
           ? t('type_merch')
+          : item.type === 'plugin'
+            ? t('type_plugin')
           : t('type_tour')
 
   return (

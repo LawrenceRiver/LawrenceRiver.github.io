@@ -1,5 +1,5 @@
 import matter from 'gray-matter'
-import type { BaseItem, ContentItem, ExternalLink, ItemType, PaperItem, AlbumItem, MerchItem, TourItem } from './types'
+import type { BaseItem, ContentItem, ExternalLink, ItemType, PaperItem, AlbumItem, MerchItem, PluginItem, TourItem } from './types'
 import { inferSlugFromPath, inferTypeFromPath, safeBoolean, safeNumber, safeString, stripMarkdown, toStringArray } from './utils'
 
 function toExternalLinks(value: unknown): ExternalLink[] | undefined {
@@ -87,6 +87,22 @@ function buildItem(filePath: string, raw: string): ContentItem | null {
     const item: MerchItem = {
       ...base,
       type: 'merch',
+      price: safeString(d.price),
+      availabilityStatus,
+      buyLinks: toExternalLinks(d.buyLinks),
+      searchText,
+    }
+    return item
+  }
+
+  if (inferredType === 'plugin') {
+    const rawStatus = safeString(d.availabilityStatus)
+    const availabilityStatus =
+      rawStatus === 'available' || rawStatus === 'sold_out' || rawStatus === 'coming_soon' ? rawStatus : undefined
+
+    const item: PluginItem = {
+      ...base,
+      type: 'plugin',
       price: safeString(d.price),
       availabilityStatus,
       buyLinks: toExternalLinks(d.buyLinks),
