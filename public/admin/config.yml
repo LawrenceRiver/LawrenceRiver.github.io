@@ -1,0 +1,138 @@
+backend:
+  name: github
+  repo: "YOUR_GITHUB_USERNAME/YOUR_REPO_NAME"
+  branch: main
+  base_url: "https://YOUR_OAUTH_PROXY_DOMAIN"
+  auth_endpoint: "auth"
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "site"
+    label: "Site"
+    files:
+      - file: "src/content/site/settings.md"
+        label: "Images"
+        name: "settings"
+        fields:
+          - { label: "Home Research Image", name: "homeResearchImage", widget: "string" }
+          - { label: "Home Singer Image", name: "homeSingerImage", widget: "string" }
+          - { label: "Singer Poster Image", name: "singerPosterImage", widget: "string" }
+          - { label: "Singer Era Image", name: "singerEraImage", widget: "string" }
+          - { label: "Research Hero Image", name: "researchHeroImage", widget: "string" }
+      - file: "src/content/site/research-profile.md"
+        label: "Research Profile"
+        name: "research_profile"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Name (EN)", name: "name_en", widget: "string", required: false }
+          - { label: "Avatar", name: "avatar", widget: "image", required: false }
+          - { label: "Bio", name: "bio", widget: "string", required: false }
+          - { label: "Bio (EN)", name: "bio_en", widget: "string", required: false }
+          - { label: "Bullets", name: "bullets", widget: "list", required: false }
+          - { label: "Bullets (EN)", name: "bullets_en", widget: "list", required: false }
+          - label: "Links"
+            name: "links"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+
+  - name: "papers"
+    label: "Papers"
+    folder: "src/content/research/papers"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Title (EN)", name: "title_en", widget: "string", required: false }
+      - { label: "Summary", name: "summary", widget: "text", required: false }
+      - { label: "Summary (EN)", name: "summary_en", widget: "text", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Authors", name: "authors", widget: "list", required: false }
+      - { label: "Venue", name: "venue", widget: "string", required: false }
+      - { label: "Venue Short", name: "venueShort", widget: "string", required: false }
+      - { label: "Year", name: "year", widget: "number", required: false }
+      - { label: "Published At", name: "publishedAt", widget: "datetime", required: false }
+      - { label: "Updated At", name: "updatedAt", widget: "datetime", required: false }
+      - { label: "PDF URL", name: "pdfUrl", widget: "string", required: false }
+      - { label: "BIB URL", name: "bibUrl", widget: "string", required: false }
+      - { label: "Code URL", name: "codeUrl", widget: "string", required: false }
+      - { label: "Pinned", name: "pinned", widget: "boolean", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "albums"
+    label: "Albums"
+    folder: "src/content/singer/albums"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Title (EN)", name: "title_en", widget: "string", required: false }
+      - { label: "Summary", name: "summary", widget: "text", required: false }
+      - { label: "Summary (EN)", name: "summary_en", widget: "text", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Artist", name: "artist", widget: "string", required: false }
+      - { label: "Cover", name: "coverImage", widget: "image", required: false }
+      - { label: "Release Date", name: "releaseDate", widget: "string", required: false }
+      - { label: "Published At", name: "publishedAt", widget: "datetime", required: false }
+      - { label: "Updated At", name: "updatedAt", widget: "datetime", required: false }
+      - { label: "Pinned", name: "pinned", widget: "boolean", required: false }
+      - label: "Platform Links"
+        name: "platformLinks"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown", required: false }
+
+  - name: "merch"
+    label: "Merch"
+    folder: "src/content/singer/merch"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Summary", name: "summary", widget: "text", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Cover", name: "coverImage", widget: "image", required: false }
+      - { label: "Price", name: "price", widget: "string", required: false }
+      - { label: "Availability", name: "availabilityStatus", widget: "select", options: ["available", "sold_out", "coming_soon"], required: false }
+      - label: "Buy Links"
+        name: "buyLinks"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+      - { label: "Published At", name: "publishedAt", widget: "datetime", required: false }
+      - { label: "Updated At", name: "updatedAt", widget: "datetime", required: false }
+      - { label: "Pinned", name: "pinned", widget: "boolean", required: false }
+      - { label: "Body", name: "body", widget: "markdown", required: false }
+
+  - name: "tours"
+    label: "Tours"
+    folder: "src/content/singer/tours"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Summary", name: "summary", widget: "text", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Event Date", name: "eventDate", widget: "string", required: false }
+      - { label: "City", name: "city", widget: "string", required: false }
+      - { label: "Venue Name", name: "venueName", widget: "string", required: false }
+      - label: "Ticket Links"
+        name: "ticketLinks"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+      - { label: "Published At", name: "publishedAt", widget: "datetime", required: false }
+      - { label: "Updated At", name: "updatedAt", widget: "datetime", required: false }
+      - { label: "Pinned", name: "pinned", widget: "boolean", required: false }
+      - { label: "Body", name: "body", widget: "markdown", required: false }
