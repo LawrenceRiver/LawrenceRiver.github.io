@@ -4,6 +4,7 @@ backend:
   branch: main
   base_url: "https://lawrenceriver-oauth.liaohonglin05.workers.dev"
   auth_endpoint: "auth"
+  auth_type: implicit
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
