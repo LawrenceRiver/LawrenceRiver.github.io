@@ -1,7 +1,24 @@
 ---
 title: Now That It's Doomsday
 title_en: Now That It's Doomsday
-summary: A short record exploring synthetic textures and river-like melodies.
+summary: |-
+  What would you say if the world ended in one minute?
+
+  I’m not staying quiet~
+
+  I wrote this before a predicted doomsday 2025.7.15, at the age of 17-19 —
+  about sex, identity, failure, ego, loneliness, and obsession.
+
+  Some of it is ugly.
+  Some of it is honest.
+  All of it is real.
+
+  Call it chaos, call it truth —
+  this is my last statement.
+
+  Ten songs. Ten last words.
+  Raw, chaotic, and brutally honest.
+  This is who I am before the end.
 summary_en: |-
   What would you say if the world ended in one minute?
 
