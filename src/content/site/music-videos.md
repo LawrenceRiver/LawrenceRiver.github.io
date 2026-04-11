@@ -1,7 +1,6 @@
 ---
 videos:
-  - title: "MV"
-    title_en: "MV"
-    youtubeId: "dQw4w9WgXcQ"
+  - title: Abuse (Official Video)
+    title_en: Abuse (Official Video)
+    youtubeId: Gr9_1MbHJN8
 ---
-
