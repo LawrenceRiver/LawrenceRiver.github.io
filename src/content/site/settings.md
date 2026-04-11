@@ -1,5 +1,5 @@
 ---
-homeResearchImage: https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cinematic%20research%20hero%2C%20dark%20minimal%20abstract%20grid%2C%20subtle%20blue%20purple%20glow%2C%20clean%20modern%2C%20high%20contrast%2C%20no%20text%2C%20no%20logos%2C%20ultra%20wide%20banner%2C%20film%20still%2C%20high%20detail&image_size=landscape_16_9
+homeResearchImage: /uploads/截屏2026-04-12-00.56.21.png
 homeSingerImage: /uploads/img_6930.jpg
 singerPosterImage: /uploads/截屏2026-04-12-00.54.07.png
 singerEraImage: /uploads/b667d971-d9c6-4742-8171-4686a7047345.png
