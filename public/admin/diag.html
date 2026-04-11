@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Admin OAuth Diagnose</title>
+    <style>
+      body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; padding: 16px; line-height: 1.45; }
+      code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+      pre { background: #0b1020; color: #e6edf3; padding: 12px; border-radius: 10px; overflow: auto; }
+      button { padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.12); background: #111827; color: white; cursor: pointer; }
+      button:disabled { opacity: 0.5; cursor: not-allowed; }
+      .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+      .muted { color: rgba(0,0,0,0.65); }
+    </style>
+  </head>
+  <body>
+    <h1>Admin OAuth Diagnose</h1>
+    <p class="muted">This page helps verify the popup can postMessage back to the opener.</p>
+    <div class="row">
+      <button id="btn">Open OAuth Popup</button>
+      <span>Opener origin: <code id="origin"></code></span>
+    </div>
+    <h2>Config</h2>
+    <pre id="cfg">Loading /admin/config.yml ...</pre>
+    <h2>Messages</h2>
+    <pre id="log">Waiting for postMessage ...</pre>
+
+    <script>
+      const originEl = document.getElementById('origin');
+      const cfgEl = document.getElementById('cfg');
+      const logEl = document.getElementById('log');
+      const btn = document.getElementById('btn');
+      originEl.textContent = window.location.origin;
+
+      let authUrl = '';
+
+      async function loadConfig() {
+        const res = await fetch('/admin/config.yml', { cache: 'no-store' });
+        const text = await res.text();
+        cfgEl.textContent = text;
+        const baseUrlMatch = text.match(/\n\s*base_url:\s*"?([^"\n]+)"?/);
+        const authEndpointMatch = text.match(/\n\s*auth_endpoint:\s*"?([^"\n]+)"?/);
+        const baseUrl = baseUrlMatch ? baseUrlMatch[1].trim().replace(/\/+$/, '') : '';
+        const authEndpoint = authEndpointMatch ? authEndpointMatch[1].trim().replace(/^\/+/, '') : 'auth';
+        if (baseUrl) {
+          authUrl = `${baseUrl}/${authEndpoint}`;
+          btn.disabled = false;
+        } else {
+          btn.disabled = true;
+          logEl.textContent = 'Could not parse base_url from /admin/config.yml';
+        }
+      }
+
+      window.addEventListener('message', (event) => {
+        const entry = {
+          time: new Date().toISOString(),
+          origin: event.origin,
+          data: event.data,
+        };
+        const current = logEl.textContent;
+        logEl.textContent = `${JSON.stringify(entry, null, 2)}\n\n${current}`.trim();
+      });
+
+      btn.addEventListener('click', () => {
+        if (!authUrl) return;
+        const w = window.open(authUrl, 'decap_oauth', 'width=600,height=700');
+        if (!w) {
+          logEl.textContent = 'Popup blocked. Allow popups for this site and try again.';
+          return;
+        }
+      });
+
+      btn.disabled = true;
+      loadConfig().catch((e) => {
+        cfgEl.textContent = String(e);
+        btn.disabled = true;
+      });
+    </script>
+  </body>
+</html>
