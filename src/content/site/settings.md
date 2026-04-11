@@ -2,7 +2,7 @@
 homeResearchImage: https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cinematic%20research%20hero%2C%20dark%20minimal%20abstract%20grid%2C%20subtle%20blue%20purple%20glow%2C%20clean%20modern%2C%20high%20contrast%2C%20no%20text%2C%20no%20logos%2C%20ultra%20wide%20banner%2C%20film%20still%2C%20high%20detail&image_size=landscape_16_9
 homeSingerImage: /uploads/img_6930.jpg
 singerPosterImage: /uploads/截屏2026-04-12-00.24.38.png
-singerEraImage: https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=abstract%20era%20banner%2C%20dark%20background%2C%20neon%20purple%20blue%20gradients%2C%20subtle%20diagonal%20lines%2C%20premium%20tech%20aesthetic%2C%20no%20text%2C%20wide%20banner&image_size=landscape_16_9
+singerEraImage: /uploads/b667d971-d9c6-4742-8171-4686a7047345.png
 singerBackgroundImage: https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=deep%20space%20starfield%20background%2C%20soft%20nebula%20clouds%2C%20cinematic%20night%20sky%2C%20subtle%20grain%2C%20no%20text%2C%20no%20logos%2C%20high%20detail&image_size=landscape_16_9
 researchHeroImage: https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=realistic%20vintage%20newspaper%20front%20page%2C%20sepia%20paper%2C%20aged%20texture%2C%20halftone%20print%2C%20multi%20column%20layout%2C%20decorative%20serif%20masthead%2C%20rules%20and%20boxes%2C%20photo%20block%2C%20lorem%20ipsum%20style%20gibberish%2C%20no%20readable%20brand%20names%2C%20high%20detail&image_size=landscape_16_9
 socialLinks:
