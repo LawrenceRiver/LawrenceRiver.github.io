@@ -1,6 +1,6 @@
 ---
 homeResearchImage: https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cinematic%20research%20hero%2C%20dark%20minimal%20abstract%20grid%2C%20subtle%20blue%20purple%20glow%2C%20clean%20modern%2C%20high%20contrast%2C%20no%20text%2C%20no%20logos%2C%20ultra%20wide%20banner%2C%20film%20still%2C%20high%20detail&image_size=landscape_16_9
-homeSingerImage: https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cinematic%20music%20artist%20hero%2C%20dark%20starfield%20background%2C%20soft%20pink%20purple%20stage%20lights%2C%20minimal%20abstract%2C%20no%20text%2C%20no%20logos%2C%20ultra%20wide%20banner%2C%20high%20detail&image_size=landscape_16_9
+homeSingerImage: /uploads/img_6930.jpg
 singerPosterImage: /uploads/截屏2026-04-12-00.24.38.png
 singerEraImage: https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=abstract%20era%20banner%2C%20dark%20background%2C%20neon%20purple%20blue%20gradients%2C%20subtle%20diagonal%20lines%2C%20premium%20tech%20aesthetic%2C%20no%20text%2C%20wide%20banner&image_size=landscape_16_9
 singerBackgroundImage: https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=deep%20space%20starfield%20background%2C%20soft%20nebula%20clouds%2C%20cinematic%20night%20sky%2C%20subtle%20grain%2C%20no%20text%2C%20no%20logos%2C%20high%20detail&image_size=landscape_16_9
