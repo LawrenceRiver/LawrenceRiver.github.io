@@ -16,12 +16,12 @@ collections:
         label: "Images"
         name: "settings"
         fields:
-          - { label: "Home Research Image", name: "homeResearchImage", widget: "string" }
-          - { label: "Home Singer Image", name: "homeSingerImage", widget: "string" }
-          - { label: "Singer Poster Image", name: "singerPosterImage", widget: "string" }
-          - { label: "Singer Era Image", name: "singerEraImage", widget: "string" }
-          - { label: "Singer Background Image", name: "singerBackgroundImage", widget: "string", required: false }
-          - { label: "Research Hero Image", name: "researchHeroImage", widget: "string" }
+          - { label: "Home Research Image", name: "homeResearchImage", widget: "image" }
+          - { label: "Home Singer Image", name: "homeSingerImage", widget: "image" }
+          - { label: "Singer Poster Image", name: "singerPosterImage", widget: "image" }
+          - { label: "Singer Era Image", name: "singerEraImage", widget: "image" }
+          - { label: "Singer Background Image", name: "singerBackgroundImage", widget: "image", required: false }
+          - { label: "Research Hero Image", name: "researchHeroImage", widget: "image" }
           - label: "Social Links"
             name: "socialLinks"
             widget: "list"
