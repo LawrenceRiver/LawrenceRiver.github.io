@@ -4,7 +4,7 @@ homeSingerImage: /uploads/img_6930.jpg
 singerPosterImage: /uploads/截屏2026-04-12-00.54.07.png
 singerEraImage: /uploads/b667d971-d9c6-4742-8171-4686a7047345.png
 singerBackgroundImage: /uploads/sncm9192.png
-researchHeroImage: https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=realistic%20vintage%20newspaper%20front%20page%2C%20sepia%20paper%2C%20aged%20texture%2C%20halftone%20print%2C%20multi%20column%20layout%2C%20decorative%20serif%20masthead%2C%20rules%20and%20boxes%2C%20photo%20block%2C%20lorem%20ipsum%20style%20gibberish%2C%20no%20readable%20brand%20names%2C%20high%20detail&image_size=landscape_16_9
+researchHeroImage: /uploads/截屏2026-04-12-00.57.17.png
 socialLinks:
   - id: instagram
     url: https://www.instagram.com/lawrenceriverhonglinliao/
