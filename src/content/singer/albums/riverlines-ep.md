@@ -46,7 +46,7 @@ coverImage: /uploads/img_4842.jpg
 releaseDate: 2026-02-27
 publishedAt: 2026-02-27T00:00:00.000+08:00
 updatedAt: 2026-02-26T00:00:00.000+08:00
-pinned: true
+pinned: false
 platformLinks:
   - label: SoundCloud
     url: https://soundcloud.com/lawrence-river-613672796/sets/now-that-its-doomsday
