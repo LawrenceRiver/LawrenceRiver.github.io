@@ -1,19 +1,23 @@
 ---
-title: "Streaming AI for Creative Workflows"
-title_en: "Streaming AI for Creative Workflows"
-summary: "A research note on building streaming, tool-augmented AI systems for creators."
-summary_en: "A research note on building streaming, tool-augmented AI systems for creators."
-tags: ["AI", "Streaming", "Agents"]
-authors: ["LIAO Honglin"]
-venue: "Tech Note"
-venueShort: "ICME"
+title: Streaming AI for Creative Workflows
+title_en: Streaming AI for Creative Workflows
+summary: A research note on building streaming, tool-augmented AI systems for creators.
+summary_en: A research note on building streaming, tool-augmented AI systems for creators.
+tags:
+  - AI
+  - Streaming
+  - Agents
+authors:
+  - LIAO Honglin
+venue: Tech Note
+venueShort: ICME
 year: 2026
-publishedAt: "2026-03-01"
-updatedAt: "2026-03-10"
-pdfUrl: "https://example.com/paper.pdf"
-bibUrl: "https://example.com/paper.bib"
-codeUrl: "https://github.com/yourname/yourrepo"
-pinned: true
+publishedAt: 2026-03-01
+updatedAt: 2026-03-10
+pdfUrl: https://example.com/paper.pdf
+bibUrl: https://example.com/paper.bib
+codeUrl: https://github.com/yourname/yourrepo
+pinned: false
 ---
 
 ## 摘要
