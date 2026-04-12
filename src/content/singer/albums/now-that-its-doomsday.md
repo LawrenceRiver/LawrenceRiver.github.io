@@ -1,6 +1,6 @@
 ---
-title: Now That It's Doomsday
-title_en: Now That It's Doomsday
+title: ???
+title_en: ???
 summary: |-
   What would you say if the world ended in one minute?
 
