@@ -1,7 +1,7 @@
 ---
 homeResearchImage: /uploads/ofif1405.png
 homeSingerImage: /uploads/img_6930.jpg
-singerPosterImage: /uploads/截屏2026-04-12-00.54.07.png
+singerPosterImage: /uploads/截屏2026-04-12-10.48.33.png
 singerEraImage: /uploads/b667d971-d9c6-4742-8171-4686a7047345.png
 singerBackgroundImage: /uploads/sncm9192.png
 researchHeroImage: /uploads/截屏2026-04-12-00.56.21.png
