@@ -30,5 +30,18 @@
   script.setAttribute('data-goatcounter', endpoint + '/count');
   script.dataset.lawrenceCounter = 'true';
   script.async = true;
+  script.onload = function () {
+    var gc = window.goatcounter;
+    if (!gc || !gc.url || gc.filter()) return;
+    var url = gc.url({path: location.pathname, title: document.title});
+    if (!url) return;
+    url = url.replace(endpoint + '/count', 'https://lawrenceriver-raw.goatcounter.com/count');
+    if (!navigator.sendBeacon || !navigator.sendBeacon(url)) {
+      var pixel = document.createElement('img');
+      pixel.src = url; pixel.alt = ''; pixel.width = 1; pixel.height = 1;
+      pixel.style.position = 'absolute';
+      document.body.appendChild(pixel);
+    }
+  };
   document.head.appendChild(script);
 })();

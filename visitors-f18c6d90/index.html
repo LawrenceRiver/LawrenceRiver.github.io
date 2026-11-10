@@ -8,16 +8,38 @@
 <link rel="icon" href="/favicon.png">
 <style>
 :root{font-family:system-ui,-apple-system,"PingFang SC",sans-serif;color:#243e43;background:#eef3ef}body{margin:0;min-height:100svh;display:grid;place-items:center}main{width:min(520px,calc(100% - 64px));padding:50px 0}h1{font-size:19px;font-weight:500;margin:0 0 36px}.number{font-size:clamp(64px,15vw,100px);font-weight:550;letter-spacing:-.06em;line-height:1.1;overflow-wrap:anywhere;margin:0 0 20px}#visitor-status{font-size:14px;line-height:1.6}.note{font-size:12px;line-height:1.9;color:#637373;max-width:410px;margin-top:34px}a{color:inherit;text-underline-offset:4px}footer{margin-top:38px;font-size:12px}
+
+main{width:min(1200px,calc(100% - 40px))}.summary{display:grid;grid-template-columns:1fr 1fr;gap:32px}.report{margin-top:44px;border-top:1px solid #ccd7d0;padding-top:24px}.tabs{display:flex;gap:12px;flex-wrap:wrap}button{font:inherit;padding:12px 18px;border:1px solid #8ba39b;border-radius:8px;background:transparent;color:inherit;cursor:pointer}button[aria-pressed=true]{background:#243e43;color:white}iframe{width:100%;height:1500px;border:1px solid #ccd7d0;border-radius:10px;background:white;margin-top:20px}.report .note{max-width:850px}@media(max-width:600px){.summary{grid-template-columns:1fr}iframe{height:1800px}}
 </style>
-<script defer src="/site-counter.js?v=goat-dual-20261110"></script>
+<script defer src="/site-counter.js?v=reports-20261110"></script>
 </head>
 <body><main>
 <h1>Lawrence River · 访客统计</h1>
-<h2 style="font-size:15px;font-weight:500">GoatCounter · 累计去重访问</h2>
+<div class="summary"><section><h2 style="font-size:15px;font-weight:500">GoatCounter · 累计去重访问</h2>
 <p class="number"><span id="visitor-count">—</span></p>
 <p id="visitor-status" role="status">正在读取累计去重访问…</p>
 <p class="note">从 2026 年 11 月 10 日接入 GoatCounter 后开始累计，不含此前的不蒜子数据。同一会话内重复刷新、切换页面去重；跨会话或设备可能重复计入，不代表历史独立真人总数。数字最多可能延迟四小时。<br>查看本页不计入 GoatCounter。此页面未放入网站导航，不设登录保护。</p>
-<section style="margin-top:42px;border-top:1px solid #ccd7d0;padding-top:24px"><h2 style="font-size:15px;font-weight:500">不蒜子 · 原累计访客估算</h2><p class="number"><span id="busuanzi_value_site_uv">—</span></p><p class="note">保留原统计累计数据。刷新本页也可能计入；与 GoatCounter 的去重规则、接入时间不同，两个数字不宜直接比较。显示“—”表示服务尚未返回。</p></section>
+</section><section><h2 style="font-size:15px;font-weight:500">不蒜子 · 原累计访客估算</h2><p class="number"><span id="busuanzi_value_site_uv">—</span></p><p class="note">保留原统计累计数据。刷新本页也可能计入；与 GoatCounter 的去重规则、接入时间不同，两个数字不宜直接比较。显示“—”表示服务尚未返回。</p></section>
+</div>
+<section class="report"><h2>来源、地理位置、设备与访问趋势</h2>
+<p class="note">选择统计口径，再在报表中选择日期或按小时／天查看趋势。Top referrers＝来源网站；Locations＝国家／地区；Browsers、Systems、Sizes＝浏览器、系统、屏幕。没有来源信息的访问显示为无来源，地理位置是网络位置估算。</p>
+<div class="tabs" role="group" aria-label="统计口径"><button id="mode-unique" aria-pressed="true">会话去重访问</button><button id="mode-raw" aria-pressed="false">不去重浏览量</button></div>
+<p id="mode-note" class="note">去重模式：IP＋浏览器信息识别最长约 8 小时的会话，全站按一个路径计数；不是永久独立真人数。</p>
+<p class="note">详细报表需要 GoatCounter 登录。若下方要求登录或浏览器拦截嵌入登录，请先<a id="report-link" href="https://lawrenceriver.goatcounter.com/" target="_blank" rel="noopener">在新窗口打开并登录报表</a>，再刷新本页。不会在页面中保存账号密钥。</p>
+<iframe id="detail-report" title="会话去重访问：来源、地区、设备和趋势" src="https://lawrenceriver.goatcounter.com/?hideui=1" loading="lazy"></iframe>
+</section>
+<script>
+(function(){
+ var unique=document.getElementById('mode-unique'),raw=document.getElementById('mode-raw'),frame=document.getElementById('detail-report');
+ function select(isRaw){
+  unique.setAttribute('aria-pressed',String(!isRaw));raw.setAttribute('aria-pressed',String(isRaw));
+  var url='https://'+(isRaw?'lawrenceriver-raw':'lawrenceriver')+'.goatcounter.com/';
+  frame.src=url+'?hideui=1';frame.title=(isRaw?'不去重浏览量':'会话去重访问')+'：来源、地区、设备和趋势';document.getElementById('report-link').href=url;
+  document.getElementById('mode-note').textContent=isRaw?'不去重模式：从 2026 年 11 月 10 日新增，每次普通页面加载计一次，刷新也计入；记录实际页面路径。站内无刷新切页暂不另外上报，查看统计页不计入。':'去重模式：IP＋浏览器信息识别最长约 8 小时的会话，全站按一个路径计数；不是永久独立真人数。';
+ }
+ unique.addEventListener('click',function(){select(false)});raw.addEventListener('click',function(){select(true)});
+})();
+</script>
 <footer><a href="/">返回网站</a></footer>
 </main></body>
 </html>
