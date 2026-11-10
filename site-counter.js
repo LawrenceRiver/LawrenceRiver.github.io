@@ -5,6 +5,11 @@
     if (status) status.textContent = '本地预览不计数，请在正式网站查看。';
     return;
   }
+  // Keep the original counter alongside GoatCounter for comparison.
+  var legacy = document.createElement('script');
+  legacy.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+  legacy.async = true;
+  document.head.appendChild(legacy);
   var endpoint = 'https://lawrenceriver.goatcounter.com';
   if (/^\/visitors-f18c6d90(?:\/|$)/.test(location.pathname)) {
     fetch(endpoint + '/counter/TOTAL.json', {signal: AbortSignal.timeout(12000)})
