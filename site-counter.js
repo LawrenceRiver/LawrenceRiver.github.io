@@ -69,6 +69,7 @@
       deviceModel = label;
       send({path: 'lrmodel:' + label, title: label, event: true, no_session: true});
     }
+    if (location.pathname === '/') section('/');
     var hints = navigator.userAgentData;
     if (hints && hints.getHighEntropyValues) {
       hints.getHighEntropyValues(['model']).then(function (info) {model(info.model);}, function () {model();});
