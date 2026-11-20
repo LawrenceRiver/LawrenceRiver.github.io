@@ -8,6 +8,8 @@ class Widget(HTMLParser):
   if a.get('data-stats') not in (None,'null'):self.stats=json.loads(a['data-stats'])
   if tag=='tr' and a.get('id') and 'data-count' in a:
    self.rows.append({'label':a['id'],'count':int(a['data-count'])})
+  if 'data-stats' in a and self.rows and 'trend' not in self.rows[-1]:
+   self.rows[-1]['trend']=[{'date':x['day'],'count':x.get('daily',0)} for x in self.stats]
   if tag not in ('br','img','input','meta','link','hr'):self.stack.append(tag)
   if 'data-key' in a:self.active={'label':a['data-key'] or '无来源','depth':len(self.stack)}
   if self.active and 'col-count' in a.get('class','').split() and 'col-perc' not in a.get('class','').split():self.capture=[]
@@ -56,7 +58,7 @@ def collect():
     counts={x['day']:x.get('daily',0) for x in parser.stats}
     summary[name]=[{'date':x['date'],'count':counts.get(x['date'],0)} for x in period['trend']]
    else:
-    summary[name]=[{'label':x['label'][len(prefix):],'count':x['count']} for x in parser.rows if x['label'].startswith(prefix)]
+    summary[name]=[{**x,'label':x['label'][len(prefix):]} for x in parser.rows if x['label'].startswith(prefix)]
   out['sections'][str(days)]=summary
  return out
 if __name__=='__main__':
