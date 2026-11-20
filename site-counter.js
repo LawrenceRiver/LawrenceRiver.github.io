@@ -43,9 +43,17 @@
       }
     }
     send({path: location.pathname, title: document.title});
+    var deviceModel = '未提供';
     function section(path) {
       var key = path.replace(/\/(?=#|$)/g, '') || '/';
       send({path: 'lrsection:' + key, title: key, event: true, no_session: true});
+      var source = '直接访问／未提供';
+      try {if (document.referrer) source = new URL(document.referrer).hostname;} catch (_) {}
+      var ua = navigator.userAgent || '';
+      var system = /Android/i.test(ua) ? 'Android' : /iPhone|iPad/i.test(ua) ? 'iOS / iPadOS' : /Windows/i.test(ua) ? 'Windows' : /Macintosh/i.test(ua) ? 'macOS' : /Linux/i.test(ua) ? 'Linux' : '未提供';
+      var device = deviceModel !== '未提供' ? deviceModel : /iPhone/i.test(ua) ? 'iPhone（型号未提供）' : /iPad/i.test(ua) ? 'iPad（型号未提供）' : /Mobile|Android/i.test(ua) ? '移动设备（型号未提供）' : '电脑／其他（型号未提供）';
+      var details = [key, source, device, system, screen.width + ' × ' + screen.height, new Date().toISOString().slice(0,16)+'Z'];
+      send({path:'lrdetail:'+encodeURIComponent(JSON.stringify(details)),title:'分栏点击明细',event:true,no_session:true});
     }
     window.addEventListener('section-open', function (event) { section(event.detail); });
     document.addEventListener('click', function (event) {
@@ -58,6 +66,7 @@
     }, true);
     function model(value) {
       var label = typeof value === 'string' && /^[a-z0-9 ._()+-]{1,64}$/i.test(value.trim()) ? value.trim() : '未提供';
+      deviceModel = label;
       send({path: 'lrmodel:' + label, title: label, event: true, no_session: true});
     }
     var hints = navigator.userAgentData;

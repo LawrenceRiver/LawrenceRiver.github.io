@@ -51,7 +51,7 @@ def collect():
  for days in [7,30]:
   period=out['modes']['raw'][str(days)]
   summary={}
-  for name,prefix in [('sections','lrsection:'),('models','lrmodel:')]:
+  for name,prefix in [('sections','lrsection:'),('models','lrmodel:'),('details','lrdetail:')]:
    excluded=[];summary[name]=[]
    while True:
     query=urllib.parse.urlencode({'widget':0,'period-start':period['start'],'period-end':period['end'],'group':'day','filter':'in:path at:start '+prefix,'max':100,'total':1,'exclude':','.join(excluded)})
@@ -60,7 +60,13 @@ def collect():
     for row in parser.rows:
      if row['label'].startswith(prefix):
       row['label']=row['label'][len(prefix):]
-      if name=='models':row.pop('trend',None)
+      if name in ('models','details'):row.pop('trend',None)
+      if name=='details':
+       try:
+        fields=json.loads(urllib.parse.unquote(row['label']))
+        if len(fields)!=6:continue
+        row={'fields':fields,'count':row['count']}
+       except (ValueError,TypeError):continue
       summary[name].append(row)
     if not result['more']:break
     if not set(parser.ids).difference(excluded):raise ValueError('Missing analytics pagination cursor')
