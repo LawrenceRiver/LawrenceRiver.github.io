@@ -33,15 +33,37 @@
   script.onload = function () {
     var gc = window.goatcounter;
     if (!gc || !gc.url || gc.filter()) return;
-    var url = gc.url({path: location.pathname, title: document.title});
-    if (!url) return;
-    url = url.replace(endpoint + '/count', 'https://lawrenceriver-raw.goatcounter.com/count');
-    if (!navigator.sendBeacon || !navigator.sendBeacon(url)) {
-      var pixel = document.createElement('img');
-      pixel.src = url; pixel.alt = ''; pixel.width = 1; pixel.height = 1;
-      pixel.style.position = 'absolute';
-      document.body.appendChild(pixel);
+    function send(hit) {
+      var url = gc.url(hit);
+      if (!url) return;
+      url = url.replace(endpoint + '/count', 'https://lawrenceriver-raw.goatcounter.com/count');
+      if (!navigator.sendBeacon || !navigator.sendBeacon(url)) {
+        var pixel = new Image();
+        pixel.src = url;
+      }
     }
+    send({path: location.pathname, title: document.title});
+    function section(path) {
+      var key = path.replace(/\/(?=#|$)/g, '') || '/';
+      send({path: 'lrsection:' + key, title: key, event: true, no_session: true});
+    }
+    window.addEventListener('section-open', function (event) { section(event.detail); });
+    document.addEventListener('click', function (event) {
+      var link = event.target.closest && event.target.closest('a[href]');
+      if (!link) return;
+      var url = new URL(link.href, location.href);
+      if (url.origin !== location.origin || !/^\/(?:bios(?:\/(?:computer|music|ai-music))?|research|music|riverb)?\/?$/.test(url.pathname)) return;
+      if (url.hash && !/^#[a-z][a-z0-9-]{0,70}$/i.test(url.hash)) return;
+      section(url.pathname + url.hash);
+    }, true);
+    function model(value) {
+      var label = typeof value === 'string' && /^[a-z0-9 ._()+-]{1,64}$/i.test(value.trim()) ? value.trim() : '未提供';
+      send({path: 'lrmodel:' + label, title: label, event: true, no_session: true});
+    }
+    var hints = navigator.userAgentData;
+    if (hints && hints.getHighEntropyValues) {
+      hints.getHighEntropyValues(['model']).then(function (info) {model(info.model);}, function () {model();});
+    } else model();
   };
   document.head.appendChild(script);
 })();

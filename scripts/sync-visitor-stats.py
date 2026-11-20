@@ -6,6 +6,8 @@ class Widget(HTMLParser):
  def handle_starttag(self,tag,attrs):
   a=dict(attrs)
   if a.get('data-stats') not in (None,'null'):self.stats=json.loads(a['data-stats'])
+  if tag=='tr' and a.get('id') and 'data-count' in a:
+   self.rows.append({'label':a['id'],'count':int(a['data-count'])})
   if tag not in ('br','img','input','meta','link','hr'):self.stack.append(tag)
   if 'data-key' in a:self.active={'label':a['data-key'] or '无来源','depth':len(self.stack)}
   if self.active and 'col-count' in a.get('class','').split() and 'col-perc' not in a.get('class','').split():self.capture=[]
@@ -36,12 +38,26 @@ def collect():
   for days in [7,30]:
    start=today-datetime.timedelta(days=days-1);data={'start':str(start),'end':str(today),'trend':[]}
    for name,wid in [('trend',1),('sources',2),('browsers',4),('systems',5),('locations',6),('screens',8)]:
-    query=urllib.parse.urlencode({'widget':wid,'period-start':str(start),'period-end':str(today),'group':'day','total':data.get('total',1)})
+    query=urllib.parse.urlencode({'widget':wid,'period-start':str(start),'period-end':str(today),'filter':'is:pageview','group':'day','total':data.get('total',1)})
     fragment=json.loads(get(f'https://{host}.goatcounter.com/load-widget?{query}'))['html'];p=Widget();p.feed(fragment)
     data[name]=[{'date':x['day'],'count':x.get('daily',0)} for x in p.stats] if name=='trend' else p.rows[:10]
     if name=='trend':data['total']=sum(x['count'] for x in data['trend'])
     time.sleep(.3)
    data['total']=sum(x['count'] for x in data['trend']);out['modes'][mode][str(days)]=data
+ out['sections']={}
+ for days in [7,30]:
+  period=out['modes']['raw'][str(days)]
+  summary={}
+  for name,prefix,widget in [('sections','lrsection:',0),('models','lrmodel:',0),('trend','lrsection:',1)]:
+   query=urllib.parse.urlencode({'widget':widget,'period-start':period['start'],'period-end':period['end'],'group':'day','filter':'in:path at:start '+prefix,'max':100,'total':1})
+   parser=Widget()
+   parser.feed(json.loads(get('https://lawrenceriver-raw.goatcounter.com/load-widget?'+query))['html'])
+   if name=='trend':
+    counts={x['day']:x.get('daily',0) for x in parser.stats}
+    summary[name]=[{'date':x['date'],'count':counts.get(x['date'],0)} for x in period['trend']]
+   else:
+    summary[name]=[{'label':x['label'][len(prefix):],'count':x['count']} for x in parser.rows if x['label'].startswith(prefix)]
+  out['sections'][str(days)]=summary
  return out
 if __name__=='__main__':
  import sys
