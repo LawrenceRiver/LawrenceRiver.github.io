@@ -70,6 +70,16 @@
       send({path: 'lrmodel:' + label, title: label, event: true, no_session: true});
     }
     if (location.pathname === '/') section('/');
+    var originalPushState = history.pushState;
+    history.pushState = function () {
+      var previousPath = location.pathname;
+      var result = originalPushState.apply(history, arguments);
+      if (location.pathname === '/' && previousPath !== '/') section('/');
+      return result;
+    };
+    window.addEventListener('popstate', function () {
+      if (location.pathname === '/') section('/');
+    });
     var hints = navigator.userAgentData;
     if (hints && hints.getHighEntropyValues) {
       hints.getHighEntropyValues(['model']).then(function (info) {model(info.model);}, function () {model();});
