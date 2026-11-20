@@ -64,7 +64,12 @@ def collect():
       if name=='details':
        try:
         fields=json.loads(urllib.parse.unquote(row['label']))
-        if len(fields)!=6:continue
+        if len(fields)==6:fields+=['未提供','未提供','未提供','打开分栏']
+        if len(fields)!=10:continue
+        query=urllib.parse.urlencode({'widget':6,'period-start':period['start'],'period-end':period['end'],'filter':'in:path at:start at:end '+prefix+row['label'],'total':row['count']})
+        region=Widget()
+        region.feed(json.loads(get('https://lawrenceriver-raw.goatcounter.com/load-widget?'+query))['html'])
+        if region.rows:fields[7]=' / '.join(x['label'] for x in region.rows)
         row={'fields':fields,'count':row['count']}
        except (ValueError,TypeError):continue
       summary[name].append(row)

@@ -44,22 +44,33 @@
     }
     send({path: location.pathname, title: document.title});
     var deviceModel = '未提供';
-    function section(path) {
+    function section(path, action) {
       var key = path.replace(/\/(?=#|$)/g, '') || '/';
-      send({path: 'lrsection:' + key, title: key, event: true, no_session: true});
+      if (!action) send({path: 'lrsection:' + key, title: key, event: true, no_session: true});
       var source = '直接访问／未提供';
       try {if (document.referrer) source = new URL(document.referrer).hostname;} catch (_) {}
       var ua = navigator.userAgent || '';
       var system = /Android/i.test(ua) ? 'Android' : /iPhone|iPad/i.test(ua) ? 'iOS / iPadOS' : /Windows/i.test(ua) ? 'Windows' : /Macintosh/i.test(ua) ? 'macOS' : /Linux/i.test(ua) ? 'Linux' : '未提供';
       var device = deviceModel !== '未提供' ? deviceModel : /iPhone/i.test(ua) ? 'iPhone（型号未提供）' : /iPad/i.test(ua) ? 'iPad（型号未提供）' : /Mobile|Android/i.test(ua) ? '移动设备（型号未提供）' : '电脑／其他（型号未提供）';
-      var details = [key, source, device, system, screen.width + ' × ' + screen.height, new Date().toISOString().slice(0,16)+'Z'];
+      var match = ua.match(/(Edg|OPR|Firefox|Chrome|Version)\/([\d.]+)/);
+      var browser = match ? ({Edg:'Edge',OPR:'Opera',Version:'Safari'}[match[1]] || match[1])+' '+match[2] : '未提供';
+      var campaign = new URLSearchParams(location.search).get('utm_source');
+      if (campaign && /^[a-z0-9_. -]{1,60}$/i.test(campaign)) source = campaign;
+      var details = [key, source, device, system, screen.width + ' × ' + screen.height, new Date().toISOString().slice(0,16)+'Z',navigator.language || '未提供','未提供',browser,action || '打开分栏'];
       send({path:'lrdetail:'+encodeURIComponent(JSON.stringify(details)),title:'分栏点击明细',event:true,no_session:true});
     }
     window.addEventListener('section-open', function (event) { section(event.detail); });
     document.addEventListener('click', function (event) {
       var link = event.target.closest && event.target.closest('a[href]');
-      if (!link) return;
+      if (!link) {
+        var button = event.target.closest && event.target.closest('button');
+        if (button && /复制|copy/i.test((button.getAttribute('aria-label')||'')+' '+(button.title||'')+' '+(button.textContent||''))) section(location.pathname, '点击复制按钮');
+        return;
+      }
       var url = new URL(link.href, location.href);
+      if (link.hasAttribute('download')) {section(location.pathname, '下载文件');return;}
+      if (url.protocol === 'mailto:') {section(location.pathname, '打开邮件应用');return;}
+      if (/^https?:$/.test(url.protocol) && url.origin !== location.origin) {section(location.pathname, '外链 · '+url.hostname);return;}
       if (url.origin !== location.origin || !/^\/(?:bios(?:\/(?:computer|music|ai-music))?|research|music|riverb)?\/?$/.test(url.pathname)) return;
       if (url.hash && !/^#[a-z][a-z0-9-]{0,70}$/i.test(url.hash)) return;
       section(url.pathname + url.hash);
