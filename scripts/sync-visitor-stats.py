@@ -2,11 +2,12 @@
 import datetime,json,re,time,urllib.request,urllib.parse,html,pathlib
 from html.parser import HTMLParser
 class Widget(HTMLParser):
- def __init__(self):super().__init__();self.stats=[];self.rows=[];self.stack=[];self.active=None;self.capture=None
+ def __init__(self):super().__init__();self.stats=[];self.ids=[];self.rows=[];self.stack=[];self.active=None;self.capture=None
  def handle_starttag(self,tag,attrs):
   a=dict(attrs)
   if a.get('data-stats') not in (None,'null'):self.stats=json.loads(a['data-stats'])
   if tag=='tr' and a.get('id') and 'data-count' in a:
+   self.ids.append(a['data-id'])
    self.rows.append({'label':a['id'],'count':int(a['data-count'])})
   if 'data-stats' in a and self.rows and 'trend' not in self.rows[-1]:
    self.rows[-1]['trend']=[{'date':x['day'],'count':x.get('daily',0)} for x in self.stats]
@@ -50,15 +51,24 @@ def collect():
  for days in [7,30]:
   period=out['modes']['raw'][str(days)]
   summary={}
-  for name,prefix,widget in [('sections','lrsection:',0),('models','lrmodel:',0),('trend','lrsection:',1)]:
-   query=urllib.parse.urlencode({'widget':widget,'period-start':period['start'],'period-end':period['end'],'group':'day','filter':'in:path at:start '+prefix,'max':100,'total':1})
-   parser=Widget()
-   parser.feed(json.loads(get('https://lawrenceriver-raw.goatcounter.com/load-widget?'+query))['html'])
-   if name=='trend':
-    counts={x['day']:x.get('daily',0) for x in parser.stats}
-    summary[name]=[{'date':x['date'],'count':counts.get(x['date'],0)} for x in period['trend']]
-   else:
-    summary[name]=[{**x,'label':x['label'][len(prefix):]} for x in parser.rows if x['label'].startswith(prefix)]
+  for name,prefix in [('sections','lrsection:'),('models','lrmodel:')]:
+   excluded=[];summary[name]=[]
+   while True:
+    query=urllib.parse.urlencode({'widget':0,'period-start':period['start'],'period-end':period['end'],'group':'day','filter':'in:path at:start '+prefix,'max':100,'total':1,'exclude':','.join(excluded)})
+    result=json.loads(get('https://lawrenceriver-raw.goatcounter.com/load-widget?'+query))
+    parser=Widget();parser.feed(result['html'])
+    for row in parser.rows:
+     if row['label'].startswith(prefix):
+      row['label']=row['label'][len(prefix):]
+      if name=='models':row.pop('trend',None)
+      summary[name].append(row)
+    if not result['more']:break
+    if not set(parser.ids).difference(excluded):raise ValueError('Missing analytics pagination cursor')
+    excluded.extend(parser.ids)
+  counts={}
+  for row in summary['sections']:
+   for day in row['trend']:counts[day['date']]=counts.get(day['date'],0)+day['count']
+  summary['trend']=[{'date':x['date'],'count':counts.get(x['date'],0)} for x in period['trend']]
   out['sections'][str(days)]=summary
  return out
 if __name__=='__main__':
